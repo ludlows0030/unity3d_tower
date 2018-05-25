@@ -4,27 +4,35 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public float speed = 2f;//角色移动速度
+    public float speed = 2f;
 
     private Rigidbody2D _rigidbody2D;
+    private Vector2 _CurrentPosition;
+    private Vector2 _PreviousPosition;
+    private Vector2 _NextMovement;
 
-    private void Start()
+    private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+
+        _CurrentPosition = _rigidbody2D.position;
+        _PreviousPosition = _rigidbody2D.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        float deltaX = Input.GetAxis("Horizontal") * speed;
-        float deltaY = Input.GetAxis("Vertical") * speed;
-        if(deltaX != 0 || deltaY != 0)
-        {
-            Vector2 movement = new Vector2(deltaX, deltaY);//两个方向的移动
-            movement = Vector2.ClampMagnitude(movement, speed);//限制对角线移动速度
+        _PreviousPosition = _rigidbody2D.position;
 
-            movement *= Time.deltaTime;//固定帧率
-            movement = transform.TransformDirection(movement);//本地变化为全局坐标
-            _rigidbody2D.velocity = movement;
-        }
+        Vector2 movement = Vector2.zero;
+        float deltaX = Input.GetAxis("Horizontal")*speed;
+        float deltaY = Input.GetAxis("Vertical")*speed;
+        movement += new Vector2(deltaX, deltaY);
+        movement *= Time.deltaTime;
+        _NextMovement += movement;
+
+        _CurrentPosition = _PreviousPosition + _NextMovement;
+        _rigidbody2D.MovePosition(_CurrentPosition);
+
+        _NextMovement = Vector2.zero;
     }
 }

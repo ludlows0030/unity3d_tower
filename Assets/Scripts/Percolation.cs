@@ -7,12 +7,13 @@ public class Percolation{
     private bool[] opened;//所有结点是否开放的布尔值数组
     private int n; // n*n大小的grid;
     WeightedQuickUnionUF uf;
+    WeightedQuickUnionUF _uf;
 
     public Percolation(int n)
     {
         this.n = n;//储存传入的参数n
-        uf = new WeightedQuickUnionUF(n * n + 2);//建立n*n+2大小的序列，第一位id为0，最后一位id为n*n-1
-
+        uf = new WeightedQuickUnionUF(n * n + 2);//建立n*n+2大小的序列，第一位id为0，最后一位id为n*n+1
+        _uf = new WeightedQuickUnionUF(n * n+1);//建立n*n+1大小的序列，目的是当检测系统内两点是否连接时，排除虚拟点位的干扰
         //模拟开始时，除第一个点和最后一个点（两个）虚拟点位默认为开放，其余都默认关闭
         opened = new bool[n * n + 2];
         for(int i = 1; i < n * n + 1; i++)
@@ -76,7 +77,26 @@ public class Percolation{
         }
 
         //当行数超出边界时，返回fasle
-        else if (row < 0 || col <= 0 || row > n + 1 || col > n)
+        else if (row < 0 || col <= 0 || row > n || col >= n)
+        {
+            return false;
+        }
+
+        //其余情况通过计算p
+        else
+        {
+            int p = index(row, col);
+            return opened[p];
+        }
+
+    }
+
+    //检查传入坐标的点是否开放，此为没有虚拟点位的系统，一旦坐标超出边界即为false
+    public bool _isOpen(int row, int col)
+    {
+
+        //当行数超出边界时，返回fasle
+        if (row <= 0 || col <= 0 || row > n || col > n)
         {
             return false;
         }
@@ -97,6 +117,43 @@ public class Percolation{
         return uf.connected(0, n * n + 1);
     }
 
+    //传入的两个点是否连接
+    public bool isConnected(int row1,int col1,int row2,int col2)
+    {
+        //先将排除虚拟点位的系统中的每个点与周边开放的点连接
+        for(int x = 1; x < n + 1; x++)
+        {
+            for(int y = 1; y < n + 1; y++)
+            {
+                if (_isOpen(y, x))
+                {
+                    union(y, x);
+                }
+
+            }
+        }
+        return _uf.connected(index(row1, col1), index(row2, col2));
+    }
+
+    /// <summary>
+    /// 用于没有虚拟点位的系统连接开放的点周围的开放点
+    /// </summary>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    private void union(int row,int col)
+    {
+        int p = index(row, col);
+        //检查该点上下左右是否开放，如果开放则将两者连接
+        bool up = _isOpen(row - 1, col);
+        bool right = _isOpen(row, col + 1);
+        bool left = _isOpen(row, col - 1);
+        bool down = _isOpen(row + 1, col);
+        if (up) _uf.union(p, index(row - 1, col));
+        if (right) _uf.union(p, index(row, col + 1));
+        if (left) _uf.union(p, index(row, col - 1));
+        if (down) _uf.union(p, index(row + 1, col));
+    }
+
     //如果系统不渗透，持续随机打开系统中的点，直到系统渗透为止
     public void doPercolation(int n)
     {
@@ -104,7 +161,7 @@ public class Percolation{
         {
             int row = Random.Range(0,n+1);
             int col = Random.Range(0,n+1);
-            open(row, col);
+            open(col, row);
         }
     }
 }
