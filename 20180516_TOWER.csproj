@@ -285,10 +285,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\MapManager.cs" />
+    <Compile Include="Assets\Scripts\GameEvent.cs" />
+    <Compile Include="Assets\Scripts\IGameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers.cs" />
+    <Compile Include="Assets\Scripts\ManagerStatus.cs" />
+    <Compile Include="Assets\Scripts\MapController.cs" />
+    <Compile Include="Assets\Scripts\Messenger.cs" />
+    <Compile Include="Assets\Scripts\MissionManager.cs" />
+    <Compile Include="Assets\Scripts\ObjectiveTrigger.cs" />
     <Compile Include="Assets\Scripts\Percolation.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\StartupController.cs" />
+    <Compile Include="Assets\Scripts\StartupEvent.cs" />
     <Compile Include="Assets\Scripts\WeightedQuickUnionUF.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour {
+public class MapController : MonoBehaviour {
+
+    public ManagerStatus status { get; private set; }
 
     [SerializeField] private GameObject end;//终点预制体获取
     [SerializeField] private GameObject wall;//墙壁预制体获取
@@ -20,8 +22,9 @@ public class MapManager : MonoBehaviour {
     private Percolation pc;
  
 
-    private void Start()
+    public void Start()
     {
+
         mapHolder = new GameObject("map_holder").transform;
         mapHolder.SetParent(_canvas);//将mapholder的父对象设为画布
         pc = new Percolation(cols-1);
@@ -29,6 +32,8 @@ public class MapManager : MonoBehaviour {
         InitWall();
 
         InitStartPoint();
+
+        status = ManagerStatus.Started;
 
     }
 
