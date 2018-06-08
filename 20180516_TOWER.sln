@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180516_TOWER", "20180516_TOWER.csproj", "{6D2B9153-7563-07C4-34B2-7C1C09006B8A}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20180516_TOWER", "Assembly-CSharp.csproj", "{B241B223-FB73-0E3F-7289-AC254755175A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D2B9153-7563-07C4-34B2-7C1C09006B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D2B9153-7563-07C4-34B2-7C1C09006B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D2B9153-7563-07C4-34B2-7C1C09006B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D2B9153-7563-07C4-34B2-7C1C09006B8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B241B223-FB73-0E3F-7289-AC254755175A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B241B223-FB73-0E3F-7289-AC254755175A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B241B223-FB73-0E3F-7289-AC254755175A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B241B223-FB73-0E3F-7289-AC254755175A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

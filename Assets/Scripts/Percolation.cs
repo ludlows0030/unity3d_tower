@@ -135,6 +135,15 @@ public class Percolation{
         return _uf.connected(index(row1, col1), index(row2, col2));
     }
 
+    public bool isConer(int row,int col)
+    {
+        if ((_isOpen(row + 1, col) && !_isOpen(row - 1, col) && !_isOpen(row, col + 1) && !_isOpen(row, col - 1)) || (!_isOpen(row + 1, col) && _isOpen(row - 1, col) && !_isOpen(row, col + 1) && !_isOpen(row, col - 1)) || (!_isOpen(row + 1, col) && !_isOpen(row - 1, col) && _isOpen(row, col + 1) && !_isOpen(row, col - 1)) || (!_isOpen(row + 1, col) && !_isOpen(row - 1, col) && !_isOpen(row, col + 1) && _isOpen(row, col - 1)))
+        {
+            return true;
+        }
+        else return false;
+    }
+
     /// <summary>
     /// 用于没有虚拟点位的系统连接开放的点周围的开放点
     /// </summary>
